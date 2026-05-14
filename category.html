@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iron Muscles - المنتجات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-ring"></div>
+            <img src="images/logo-transparent.png" alt="Iron Muscles Logo" class="loader-logo">
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/logo-transparent.png" alt="Iron Muscles" class="nav-logo-img">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">الرئيسية</a></li>
+                <li><a href="category.html?c=creatine" class="nav-link">كرياتين</a></li>
+                <li><a href="index.html#contact" class="nav-link">تواصل معنا</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="cart-btn" id="cartBtn" aria-label="عربة التسوق">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> عربة التسوق</h3>
+            <button class="cart-close" id="cartClose">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div class="cart-total">
+                <span>الإجمالي:</span>
+                <span id="cartTotal">0 ج.م</span>
+            </div>
+            <button class="checkout-btn">إتمام الطلب عبر واتساب</button>
+        </div>
+    </div>
+
+    <!-- Category Content -->
+    <section class="section category-page-section" style="padding-top: 150px;">
+        <div class="section-bg-effect"></div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" id="categoryTitle">تحميل...</h2>
+                <p class="section-desc">تصفح مجموعتنا المختارة من أفضل المكملات الغذائية</p>
+            </div>
+            <div class="products-grid" id="categoryGrid">
+                <!-- JS will inject products here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Section -->
+    <div id="checkout-section" class="checkout-overlay">
+        <div class="checkout-container">
+            <div class="checkout-header">
+                <h2>إتمام الطلب</h2>
+                <button class="close-checkout" id="closeCheckout">&times;</button>
+            </div>
+            <div class="checkout-body">
+                <div class="order-summary">
+                    <h3>ملخص الطلب</h3>
+                    <div id="checkoutItemsList"></div>
+                    <div class="summary-totals">
+                        <div class="total-row"><span>المنتجات:</span><span id="checkoutSubtotal">0 ج.م</span></div>
+                        <div class="total-row"><span>الشحن:</span><span id="checkoutShipping">0 ج.م</span></div>
+                        <div class="total-row final"><span>الإجمالي الكلي:</span><span id="checkoutTotal">0 ج.م</span></div>
+                    </div>
+                </div>
+                <form id="orderForm" class="order-form">
+                    <h3>بيانات الشحن</h3>
+                    <div class="form-grid">
+                        <div class="form-group"><label>الاسم بالكامل</label><input type="text" id="custName" required></div>
+                        <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="custPhone" required></div>
+                        <div class="form-group"><label>المحافظة</label>
+                            <select id="custCity" required onchange="calculateShipping()">
+                                <option value="" disabled selected>اختر المحافظة</option>
+                                <option value="cairo">القاهرة والجيزة</option>
+                                <option value="provinces">باقي المحافظات</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>العنوان بالتفصيل</label><input type="text" id="custStreet" required></div>
+                        <div class="form-group full-width"><label>علامة مميزة</label><input type="text" id="custLandmark"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full btn-glow">تأكيد الطلب عبر الواتساب</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Iron Muscles. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/201000000000" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
