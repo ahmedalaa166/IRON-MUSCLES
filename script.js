@@ -517,17 +517,23 @@ window.addEventListener('scroll', () => {
 });
 
 // ===== Active Nav Link =====
-const sections = document.querySelectorAll('section[id]');
-window.addEventListener('scroll', () => {
+function updateActiveLink() {
+    const sections = document.querySelectorAll('section[id]');
     const scrollY = window.scrollY + 200;
+    
     sections.forEach(sec => {
         const top = sec.offsetTop;
         const height = sec.offsetHeight;
         const id = sec.getAttribute('id');
         const link = document.querySelector(`.nav-link[href="#${id}"]`);
-        if (link) link.classList.toggle('active', scrollY >= top && scrollY < top + height);
+        if (link) {
+            link.classList.toggle('active', scrollY >= top && scrollY < top + height);
+        }
     });
-});
+}
+
+window.addEventListener('scroll', updateActiveLink);
+window.addEventListener('load', updateActiveLink);
 
 // ===== Back to Top =====
 const backToTop = $('backToTop');

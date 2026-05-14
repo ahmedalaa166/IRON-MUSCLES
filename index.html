@@ -26,8 +26,11 @@
                 <img src="images/logo-transparent.png" alt="Iron Muscles" class="nav-logo-img">
             </a>
             <ul class="nav-links" id="navLinks">
-                <li><a href="index.html" class="nav-link active">الرئيسية</a></li>
+                <li><a href="#hero" class="nav-link">الرئيسية</a></li>
                 <li><a href="category.html?c=creatine" class="nav-link">كرياتين</a></li>
+                <li><a href="category.html?c=protein" class="nav-link">بروتين</a></li>
+                <li><a href="category.html?c=mass" class="nav-link">ماس جينر</a></li>
+                <li><a href="category.html?c=offers" class="nav-link">عروض</a></li>
                 <li><a href="#contact" class="nav-link">تواصل معنا</a></li>
             </ul>
             <div class="nav-actions">
@@ -62,9 +65,9 @@
                 <span>الإجمالي:</span>
                 <span id="cartTotal">0 ج.م</span>
             </div>
-            <a href="https://wa.me/201000000000" target="_blank" class="checkout-btn">
-                <i class="fab fa-whatsapp"></i> إتمام الطلب عبر واتساب
-            </a>
+            <button class="checkout-btn">
+                <i class="fas fa-shopping-bag"></i> إتمام الطلب
+            </button>
         </div>
     </div>
 
@@ -104,7 +107,42 @@
         </div>
     </section>
 
-
+    <!-- Categories Section -->
+    <section id="categories" class="section categories-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fas fa-th-large"></i> أقسام المتجر</span>
+                <h2 class="section-title">تسوق حسب القسم</h2>
+                <p class="section-desc">اختر القسم المناسب لأهدافك الرياضية</p>
+            </div>
+            <div class="categories-circle-grid">
+                <a href="category.html?c=creatine" class="cat-circle-item reveal">
+                    <div class="cat-img-wrapper">
+                        <img src="images/createn.png" alt="كرياتين">
+                    </div>
+                    <span>الكرياتين</span>
+                </a>
+                <a href="category.html?c=protein" class="cat-circle-item reveal">
+                    <div class="cat-img-wrapper">
+                        <img src="images/proten.png" alt="بروتين">
+                    </div>
+                    <span>البروتين</span>
+                </a>
+                <a href="category.html?c=mass" class="cat-circle-item reveal">
+                    <div class="cat-img-wrapper">
+                        <img src="images/Mass Gainers.png" alt="ماس جينر">
+                    </div>
+                    <span>ماس جينر</span>
+                </a>
+                <a href="category.html?c=offers" class="cat-circle-item reveal">
+                    <div class="cat-img-wrapper">
+                        <img src="images/offers-icon.png" alt="العروض">
+                    </div>
+                    <span>العروض</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
     <!-- Why Choose Us -->
     <section class="section features-section">
@@ -383,10 +421,13 @@
                     <i class="fas fa-check-circle"></i>
                 </div>
                 <h2 style="margin-bottom: 20px; color: var(--primary); font-family: 'Cairo';">تم استلام طلبك بنجاح!</h2>
-                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; font-family: 'Cairo'; color: #fff;">
-                    لتاكيد الطلب الرجاء ارسال رسوم الشحن عل الرقم <strong style="color: var(--primary);">01004272128</strong> وارسال اسكيرن شوت عبر الواتساب <strong style="color: var(--primary);">01026999770</strong>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 25px; font-family: 'Cairo'; color: #fff;">
+                    لتاكيد الطلب الرجاء ارسال رسوم الشحن على الرقم <strong style="color: var(--primary);">01004272128</strong> وارسال اسكرين شوت عبر الواتساب
                 </p>
-                <button onclick="closeSuccessModal()" class="btn btn-primary btn-full btn-glow">حسناً</button>
+                <a href="https://wa.me/201026999770" target="_blank" class="btn btn-glow" style="background: #25D366; color: #fff; width: 100%; margin-bottom: 15px; justify-content: center;">
+                    <i class="fab fa-whatsapp"></i> إرسال عبر واتساب (01026999770)
+                </a>
+                <button onclick="closeSuccessModal()" class="btn btn-outline btn-full" style="border-color: rgba(255,255,255,0.1);">إغلاق</button>
             </div>
         </div>
     </div>
