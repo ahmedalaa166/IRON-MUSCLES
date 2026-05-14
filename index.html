@@ -241,7 +241,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-full btn-glow">
-                        <i class="fab fa-whatsapp"></i> تأكيد الطلب عبر الواتساب
+                        <i class="fas fa-check-circle"></i> تأكيد الطلب
                     </button>
                 </form>
             </div>
@@ -373,6 +373,22 @@
     <div class="toast" id="toast">
         <i class="fas fa-check-circle"></i>
         <span id="toastMessage">تمت الإضافة للعربة</span>
+    </div>
+
+    <!-- Order Success Modal -->
+    <div id="order-success-modal" class="checkout-overlay">
+        <div class="checkout-container success-container" style="max-width: 500px; text-align: center;">
+            <div class="checkout-body" style="grid-template-columns: 1fr; display: block;">
+                <div class="success-icon" style="font-size: 5rem; color: var(--success); margin-bottom: 20px;">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2 style="margin-bottom: 20px; color: var(--primary); font-family: 'Cairo';">تم استلام طلبك بنجاح!</h2>
+                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; font-family: 'Cairo'; color: #fff;">
+                    لتاكيد الطلب الرجاء ارسال رسوم الشحن عل الرقم <strong style="color: var(--primary);">01004272128</strong> وارسال اسكيرن شوت عبر الواتساب <strong style="color: var(--primary);">01026999770</strong>
+                </p>
+                <button onclick="closeSuccessModal()" class="btn btn-primary btn-full btn-glow">حسناً</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

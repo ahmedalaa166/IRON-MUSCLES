@@ -181,9 +181,9 @@ function renderProductPage() {
                 <button class="btn btn-primary btn-glow" onclick="addCurrentProdToCart()">
                     <i class="fas fa-cart-plus"></i> إضافة للسلة
                 </button>
-                <a href="https://wa.me/201000000000?text=${encodeURIComponent('أريد طلب ' + product.name)}" target="_blank" class="btn btn-outline">
-                    <i class="fab fa-whatsapp"></i> اطلب عبر واتساب
-                </a>
+                <button onclick="buyNow()" class="btn btn-outline">
+                    <i class="fas fa-bolt"></i> شراء الآن
+                </button>
             </div>
         </div>
     `;
@@ -211,6 +211,23 @@ function addCurrentProdToCart() {
 
     if (product) {
         addToCartWithQty(product.id, product.name, product.price, product.image, qty);
+    }
+}
+
+function buyNow() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    const qty = parseInt($('prodQty').value) || 1;
+
+    let product = null;
+    for (let cat in products) {
+        product = products[cat].find(p => p.id === productId);
+        if (product) break;
+    }
+
+    if (product) {
+        addToCartWithQty(product.id, product.name, product.price, product.image, qty);
+        openCheckout();
     }
 }
 
@@ -357,10 +374,20 @@ function updateThemeIcon(theme) {
 }
 
 // ===== Order Submission =====
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mojrzzkk"; 
+
 const orderForm = $('orderForm');
 if (orderForm) {
-    orderForm.addEventListener('submit', function(e) {
+    orderForm.addEventListener('submit', async function(e) {
         e.preventDefault();
+        
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+
         const name = $('custName').value;
         const phone = $('custPhone').value;
         const city = $('custCity').options[$('custCity').selectedIndex].text;
@@ -369,29 +396,56 @@ if (orderForm) {
         const landmark = $('custLandmark').value || 'لا يوجد';
         const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
 
-        let msg = `🛒 *طلب جديد من الموقع* \n\n`;
-        msg += `👤 *العميل:* ${name}\n`;
-        msg += `📞 *الهاتف:* ${phone}\n`;
-        msg += `📍 *المحافظة:* ${city}\n`;
-        msg += `🏠 *التفاصيل:* ${building}, ${street}\n`;
-        msg += `🚩 *علامة مميزة:* ${landmark}\n\n`;
-        msg += `📋 *المنتجات:*\n`;
+        let itemsMsg = '';
         cart.forEach(item => {
-            msg += `- ${item.name} (x${item.qty}) = ${item.price * item.qty} ج.م\n`;
+            itemsMsg += `- ${item.name} (x${item.qty}) = ${item.price * item.qty} ج.م\n`;
         });
-        msg += `\n💰 *الحساب:* ${subtotal} ج.م`;
-        msg += `\n🚚 *مبلغ الشحن:* ${shippingCost} ج.م`;
-        msg += `\n✅ *الإجمالي للتأكيد:* ${subtotal + shippingCost} ج.م`;
 
-        const encoded = encodeURIComponent(msg);
-        window.open(`https://wa.me/201000000000?text=${encoded}`, '_blank');
-        
-        cart = [];
-        saveCart();
-        updateCartUI();
-        closeCheckout();
-        showToast('تم إرسال طلبك بنجاح! 🎉');
+        const formData = {
+            name: name,
+            phone: phone,
+            city: city,
+            address: `${building}, ${street}`,
+            landmark: landmark,
+            products: itemsMsg,
+            subtotal: subtotal + ' ج.م',
+            shipping: shippingCost + ' ج.م',
+            total: (subtotal + shippingCost) + ' ج.م'
+        };
+
+        try {
+            const response = await fetch(FORMSPREE_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                cart = [];
+                saveCart();
+                updateCartUI();
+                closeCheckout();
+                showOrderSuccess();
+            } else {
+                throw new Error('حدث خطأ في الإرسال');
+            }
+        } catch (error) {
+            showToast('❌ عذراً، حدث خطأ. حاول مرة أخرى.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        }
     });
+}
+
+function showOrderSuccess() {
+    const successModal = $('order-success-modal');
+    if (successModal) successModal.classList.add('show');
+}
+
+function closeSuccessModal() {
+    const successModal = $('order-success-modal');
+    if (successModal) successModal.classList.remove('show');
 }
 
 const closeCheckoutBtn = $('closeCheckout');
