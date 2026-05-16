@@ -33,7 +33,8 @@ function renderHomePreviews() {
     if (!previewContainer) return;
 
     const sections = [
-        { id: 'creatine', name: 'الكرياتين', icon: 'fas fa-atom', tag: 'القوة الخارقة' },
+        { id: 'creatine', name: 'Creatine', icon: 'fas fa-atom', tag: 'Power & Performance' },
+        { id: 'preworkout', name: 'Pre-Workout', icon: 'fas fa-bolt', tag: 'High Energy' },
     ];
 
     previewContainer.innerHTML = sections.map(sec => {
@@ -87,14 +88,14 @@ function renderCategoryPage() {
     const catTitle = $('categoryTitle');
     
     const catNames = {
-        creatine: 'الكرياتين',
-        protein: 'البروتين',
-        mass: 'ماس جينر',
-        vitamins: 'الفيتامينات',
-        preworkout: 'قبل التمرين',
+        creatine: 'Creatine',
+        protein: 'Protein',
+        mass: 'Mass Gainer',
+        vitamins: 'Vitamins',
+        preworkout: 'Pre-Workout',
         fatburners: 'Fat Burners',
-        citrulline: 'سترولين',
-        offers: 'العروض الحصرية'
+        citrulline: 'Citrulline',
+        offers: 'Exclusive Offers'
     };
 
     if (catTitle) catTitle.textContent = catNames[cat] || 'المنتجات';
@@ -150,7 +151,7 @@ function renderProductPage() {
             </div>
         </div>
         <div class="product-info-side reveal">
-            <span class="prod-badge">${product.category === 'creatine' ? 'كرياتين' : product.category}</span>
+            <span class="prod-badge">${catNames[product.category] || product.category}</span>
             <h1 class="prod-name">${product.name}</h1>
             <div class="prod-price">
                 <span class="current">${product.price} ج.م</span>
@@ -388,12 +389,13 @@ if (orderForm) {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
 
-        const name = $('custName').value;
-        const phone = $('custPhone').value;
-        const city = $('custCity').options[$('custCity').selectedIndex].text;
-        const building = $('custBuilding').value;
-        const street = $('custStreet').value;
-        const landmark = $('custLandmark').value || 'لا يوجد';
+        const name = $('custName') ? $('custName').value : '';
+        const phone = $('custPhone') ? $('custPhone').value : '';
+        const citySelect = $('custCity');
+        const city = citySelect ? citySelect.options[citySelect.selectedIndex].text : '';
+        const building = $('custBuilding') ? $('custBuilding').value : '';
+        const street = $('custStreet') ? $('custStreet').value : '';
+        const landmark = ($('custLandmark') && $('custLandmark').value) ? $('custLandmark').value : 'لا يوجد';
         const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
 
         let itemsMsg = '';
