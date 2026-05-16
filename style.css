@@ -213,17 +213,23 @@ html {
     animation: fadeInDown 1s ease;
 }
 .hero-title { margin-bottom: 24px; line-height: 1.1; animation: fadeInUp 1s ease 0.2s both; }
-.hero-iron {
-    display: block; font-family: 'Orbitron', sans-serif; font-size: clamp(2.5rem,10vw,7.5rem);
-    font-weight: 950; color: #fff; letter-spacing: -1px; text-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
+/* Hero Logo Styling */
+.hero-main-logo {
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.15));
+    animation: fadeInUp 1s ease 0.2s both;
 }
-.hero-muscles {
-    display: block; font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem,6vw,4.5rem);
-    font-weight: 900; background: var(--gradient); -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: 4px;
-    margin-top: 5px;
+.hero-logo-img {
+    max-width: 480px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    /* Blend mode to hide white background on dark theme */
+    mix-blend-mode: screen;
+    filter: brightness(1.1) contrast(1.1);
 }
-.hero-subtitle { font-size: clamp(1.1rem, 2vw, 1.4rem); color: var(--text-muted); margin-bottom: 40px; animation: fadeInUp 1s ease 0.4s both; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+.hero-subtitle { font-size: clamp(1.1rem, 2vw, 1.4rem); color: var(--text-muted); margin-bottom: 45px; animation: fadeInUp 1s ease 0.4s both; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; }
 .hero-cta { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; animation: fadeInUp 1s ease 0.6s both; }
 
 .btn {
@@ -355,7 +361,7 @@ html {
     position: relative; height: 280px; overflow: hidden;
     background: #000;
 }
-.product-card .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.product-card .card-img img { width: 100%; height: 100%; object-fit: contain; padding: 10px; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 .product-card:hover .card-img img { transform: scale(1.1); filter: brightness(1.1); }
 .product-card .card-badge {
     position: absolute; top: 15px; right: 15px; padding: 6px 14px;
@@ -1016,27 +1022,30 @@ html {
 }
 
 @media (max-width: 600px) {
-    .hero-content { padding-top: 100px; padding-bottom: 30px; text-align: center; }
-    .hero-iron { font-size: 3.2rem; letter-spacing: -1px; margin-bottom: 5px; }
-    .hero-muscles { font-size: 1.8rem; letter-spacing: 2px; margin-top: 0; }
-    .hero-badge { margin-bottom: 20px; font-size: 0.8rem; }
-    .hero-subtitle { font-size: 0.9rem; margin-bottom: 25px; padding: 0 15px; }
+    .container { padding: 0 25px; }
+    .hero-content { padding-top: 130px; padding-bottom: 50px; text-align: center; }
+    .hero-logo-img { max-width: 320px; }
+    .hero-badge { margin-bottom: 25px; font-size: 0.8rem; }
+    .hero-subtitle { font-size: 0.95rem; margin-bottom: 35px; padding: 0 15px; line-height: 1.7; }
     .hero-stats { 
         display: grid; 
         grid-template-columns: repeat(2, 1fr); 
-        gap: 10px; 
-        padding: 15px; 
-        margin-top: 25px; 
+        gap: 15px; 
+        padding: 25px 15px; 
+        margin-top: 30px; 
         width: 100%;
-        max-width: 320px;
+        max-width: 340px;
         margin-left: auto;
         margin-right: auto;
+        background: rgba(255, 255, 255, 0.04);
     }
     .stat-item:last-child { grid-column: span 2; }
     .stat-item::after { display: none; }
-    .hero-cta { flex-direction: column; width: 100%; max-width: 280px; margin: 0 auto; gap: 12px; }
-    .btn { width: 100%; justify-content: center; padding: 12px 20px; }
+    .hero-cta { flex-direction: column; width: 100%; max-width: 280px; margin: 0 auto; gap: 15px; }
+    .btn { width: 100%; justify-content: center; padding: 14px 20px; font-size: 1.05rem; }
     .nav-logo-img { height: 35px; }
+    .section { padding: 80px 0; }
+    .section-title { font-size: 2rem; }
 }
 
 @media (max-width: 400px) {
